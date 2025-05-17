@@ -1,45 +1,54 @@
-# HeartPing — Decentralized Wallet Inactivity Alert System for Solana
+# HeartPing — Decentralized Wallet Inactivity Alert System on Solana
 
-**HeartPing** is a privacy-focused, decentralized notification service that helps Solana wallet users stay connected to their digital assets by sending timely inactivity alerts. It acts as a safety net for your decentralized life — reminding you or your trusted backup contacts before your wallet goes dormant for too long.
+## What is HeartPing?
+
+**HeartPing** is a decentralized alert system built on the Solana blockchain that monitors wallet activity and sends timely notifications if your wallet remains inactive for a specified period. It helps users and their trusted contacts stay informed and take action before any irreversible asset loss occurs.
 
 ## Why HeartPing?
 
-In the fast-paced crypto world, wallets can become inactive due to forgetfulness, travel, or unexpected circumstances. Many existing inactivity-based systems prematurely trigger irreversible asset transfers without giving users enough warning. HeartPing solves this by sending customizable, friendly reminders via multiple channels—on-chain messages, SMS, email, or push notifications—before any critical action is taken.
+In the decentralized crypto ecosystem, losing access to your wallet due to inactivity or unforeseen circumstances can result in permanent loss of funds. Traditional financial systems offer legacy planning tools, but crypto assets lack such mechanisms. HeartPing fills this critical gap by providing a secure, privacy-focused solution that proactively reminds users and their backup contacts.
 
-## Features
+## How It Works
 
-- **Fully decentralized logic** on Solana ensures security and trustlessness  
-- Set customizable inactivity thresholds to suit your needs  
-- Personalized message templates for self or backup contacts  
-- Multi-channel alert delivery: on-chain Dialect messages, SMS (via Twilio), Email (via EmailJS/Resend), and Push notifications  
-- Add backup contacts like family members, lawyers, or partners to receive alerts  
-- Dark/light mode toggle with sleek, modern UI built using Next.js and TailwindCSS  
-- Seamless wallet integration using @solana/wallet-adapter (Phantom, Backpack, etc.)  
-- Robust onboarding wizard to guide users through setup  
-- Privacy-first design with encrypted data and no centralized storage  
-- Easily deployable with Vercel or Netlify  
+1. **Connect Wallet:** Link your Solana wallet using supported adapters (Phantom, Backpack, etc.).  
+2. **Set Inactivity Threshold:** Define the period of inactivity that triggers alerts.  
+3. **Customize Alerts:** Personalize your reminder messages and select preferred delivery channels—on-chain messages, SMS, email, or push notifications.  
+4. **Add Backup Contacts:** Optionally include trusted contacts such as family members, partners, or legal advisors to receive alerts.  
+5. **Stay Protected:** HeartPing continuously monitors wallet activity and sends alerts as configured.
 
-## Tech Stack
+## Key Features
 
-- Frontend: Next.js + TypeScript + TailwindCSS  
-- Wallet Integration: @solana/wallet-adapter  
-- State Management: Zustand / React Context  
-- Form Handling: React Hook Form + Zod  
-- Messaging APIs: Twilio, EmailJS/Resend, Dialect SDK  
-- Backend: Optional tRPC or Next.js API Routes  
+- Fully decentralized monitoring on Solana blockchain  
+- Custom inactivity timers per user  
+- Multi-channel alert delivery via SMS (Twilio), Email (EmailJS/Resend), On-chain Dialect messages, and Push notifications  
+- Support for backup contacts  
+- End-to-end encrypted data with no centralized storage  
+- Responsive UI with dark/light mode using Next.js, TypeScript, and TailwindCSS  
+- Compatible with major Solana wallets via @solana/wallet-adapter  
+
+## Technology Stack
+
+- **Frontend:** Next.js (TypeScript)  
+- **Styling:** TailwindCSS with dark/light mode  
+- **State Management:** Zustand or React Context  
+- **Wallet Integration:** @solana/wallet-adapter  
+- **Form Handling:** React Hook Form + Zod validation  
+- **Messaging Services:** Twilio (SMS), EmailJS/Resend (Email), Dialect SDK (On-chain messaging)  
+- **Deployment:** Vercel or Netlify  
 
 ## Getting Started
 
-1. Connect your Solana wallet  
-2. Set your desired inactivity period  
-3. Customize your alert message and choose delivery methods  
-4. Add trusted backup contacts (optional)  
-5. Relax — HeartPing will monitor your wallet and send alerts when needed
+1. Clone the repository  
+2. Install dependencies with `npm install` or `yarn`  
+3. Set up environment variables for API keys (Twilio, EmailJS/Resend, etc.)  
+4. Run the development server with `npm run dev` or `yarn dev`  
+5. Connect your Solana wallet and configure your HeartPing alerts  
 
-## Roadmap & Contribution
+## Contributing
 
-We welcome contributions! Planned improvements include support for push notifications, Telegram integration, encrypted message storage, multi-language support, and enhanced security features.
+Contributions are welcome! Please open issues or submit pull requests for improvements or new features.
 
----
 
-**Join us in making decentralized asset management safer and smarter!**
+
+**Protect your digital assets. Stay connected. HeartPing.**
+
