@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { OnboardingWizard } from "@/components/onboarding/onboarding-wizard"
 import { useWallet } from "@solana/wallet-adapter-react"
@@ -11,6 +11,11 @@ import { Clock, AlertCircle } from "lucide-react"
 export default function DemoPage() {
   const [showOnboarding, setShowOnboarding] = useState(false)
   const { connected } = useWallet()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   return (
     <div className="container py-12">
@@ -26,7 +31,7 @@ export default function DemoPage() {
             <CardDescription>Configure automated alerts for when your wallet goes inactive</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {!connected ? (
+            {!isMounted || !connected ? (
               <div className="text-center py-6 space-y-4">
                 <p className="text-muted-foreground">Connect your wallet to get started</p>
                 <div className="flex justify-center">
@@ -81,7 +86,7 @@ export default function DemoPage() {
         </Card>
       </div>
 
-      <OnboardingWizard open={showOnboarding} onOpenChange={setShowOnboarding} />
+      {isMounted && <OnboardingWizard open={showOnboarding} onOpenChange={setShowOnboarding} />}
     </div>
   )
 }

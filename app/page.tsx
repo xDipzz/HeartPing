@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { HeroSection } from "@/components/hero-section"
 import { HowItWorks } from "@/components/how-it-works"
 import { FeaturesSection } from "@/components/features-section"
@@ -15,6 +15,11 @@ import Link from "next/link"
 export default function Page() {
   const [showOnboarding, setShowOnboarding] = useState(false)
   const { connected } = useWallet()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   return (
     <>
@@ -33,7 +38,7 @@ export default function Page() {
                 Experience HeartPing with our interactive demo.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4 pt-6">
-                {connected ? (
+                {isMounted && connected ? (
                   <Button onClick={() => setShowOnboarding(true)} size="lg">
                     Set Up Your HeartPing
                   </Button>
@@ -59,7 +64,7 @@ export default function Page() {
         </div>
       </section>
 
-      <OnboardingWizard open={showOnboarding} onOpenChange={setShowOnboarding} />
+      {isMounted && <OnboardingWizard open={showOnboarding} onOpenChange={setShowOnboarding} />}
     </>
   )
 }

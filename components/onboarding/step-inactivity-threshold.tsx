@@ -29,15 +29,15 @@ export function StepInactivityThreshold({
     }
   }
 
-  const handleUnitChange = (value: "days" | "weeks" | "months") => {
-    setUnit(value)
-    updateData({ inactivityUnit: value })
+  const handleUnitChange = (value: string) => {
+    setUnit(value as "days" | "weeks" | "months")
+    updateData({ inactivityUnit: value as "days" | "weeks" | "months" })
   }
 
-  const handleFrequencyChange = (value: "one-time" | "recurring") => {
-    setFrequency(value)
+  const handleFrequencyChange = (value: string) => {
+    setFrequency(value as "one-time" | "recurring")
     updateData({
-      pingFrequency: value,
+      pingFrequency: value as "one-time" | "recurring",
       recurringDays: value === "recurring" ? Number.parseInt(recurringDays) : undefined,
     })
   }
@@ -73,7 +73,7 @@ export function StepInactivityThreshold({
           </div>
           <div className="space-y-2">
             <Label htmlFor="unit">Unit</Label>
-            <Select value={unit} onValueChange={handleUnitChange as (value: string) => void}>
+            <Select value={unit} onValueChange={handleUnitChange}>
               <SelectTrigger id="unit">
                 <SelectValue placeholder="Select unit" />
               </SelectTrigger>
@@ -88,7 +88,7 @@ export function StepInactivityThreshold({
 
         <div className="space-y-2">
           <Label>Ping frequency</Label>
-          <RadioGroup value={frequency} onValueChange={handleFrequencyChange as (value: string) => void}>
+          <RadioGroup value={frequency} onValueChange={handleFrequencyChange}>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="one-time" id="one-time" />
               <Label htmlFor="one-time">One-time alert</Label>

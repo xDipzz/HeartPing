@@ -6,11 +6,17 @@ import { useWallet } from "@solana/wallet-adapter-react"
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { MouseGlowEffect } from "@/components/mouse-glow-effect"
+import { useState, useEffect } from "react"
 
 export function HeroSection() {
   const { setVisible } = useWalletModal()
   const { connected } = useWallet()
   const router = useRouter()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const handleCTA = () => {
     if (connected) {
@@ -22,7 +28,7 @@ export function HeroSection() {
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 relative overflow-hidden">
-      <MouseGlowEffect />
+      {isMounted && <MouseGlowEffect />}
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
           <div className="flex flex-col justify-center space-y-4">

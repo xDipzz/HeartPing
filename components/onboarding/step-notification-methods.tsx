@@ -53,7 +53,7 @@ export function StepNotificationMethods({
               <Checkbox
                 id="email"
                 checked={data.notificationMethods.email}
-                onCheckedChange={(checked) => handleNotificationMethodChange("email", checked as boolean)}
+                onCheckedChange={(checked) => handleNotificationMethodChange("email", checked === true)}
               />
               <div className="grid gap-1.5">
                 <Label htmlFor="email" className="flex items-center space-x-1">
@@ -66,7 +66,7 @@ export function StepNotificationMethods({
               <Checkbox
                 id="sms"
                 checked={data.notificationMethods.sms}
-                onCheckedChange={(checked) => handleNotificationMethodChange("sms", checked as boolean)}
+                onCheckedChange={(checked) => handleNotificationMethodChange("sms", checked === true)}
               />
               <div className="grid gap-1.5">
                 <Label htmlFor="sms" className="flex items-center space-x-1">
@@ -79,7 +79,7 @@ export function StepNotificationMethods({
               <Checkbox
                 id="onChain"
                 checked={data.notificationMethods.onChain}
-                onCheckedChange={(checked) => handleNotificationMethodChange("onChain", checked as boolean)}
+                onCheckedChange={(checked) => handleNotificationMethodChange("onChain", checked === true)}
               />
               <div className="grid gap-1.5">
                 <Label htmlFor="onChain" className="flex items-center space-x-1">
@@ -92,7 +92,7 @@ export function StepNotificationMethods({
               <Checkbox
                 id="push"
                 checked={data.notificationMethods.push}
-                onCheckedChange={(checked) => handleNotificationMethodChange("push", checked as boolean)}
+                onCheckedChange={(checked) => handleNotificationMethodChange("push", checked === true)}
               />
               <div className="grid gap-1.5">
                 <Label htmlFor="push" className="flex items-center space-x-1">

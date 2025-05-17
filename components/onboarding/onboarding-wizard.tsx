@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
@@ -58,6 +58,11 @@ export function OnboardingWizard({ open, onOpenChange }: { open: boolean; onOpen
   const [currentStep, setCurrentStep] = useState(0)
   const [data, setData] = useState<OnboardingData>(defaultData)
   const { connected } = useWallet()
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const steps = [
     { title: "Connect Wallet", description: "Link your Solana wallet" },
@@ -97,8 +102,14 @@ export function OnboardingWizard({ open, onOpenChange }: { open: boolean; onOpen
   }
 
   // Skip wallet connection step if already connected
-  if (connected && currentStep === 0) {
-    handleNext()
+  useEffect(() => {
+    if (isMounted && connected && currentStep === 0) {
+      handleNext()
+    }
+  }, [connected, currentStep, isMounted])
+
+  if (!isMounted) {
+    return null
   }
 
   return (

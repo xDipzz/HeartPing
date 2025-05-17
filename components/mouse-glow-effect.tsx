@@ -6,9 +6,12 @@ import { useTheme } from "next-themes"
 export function MouseGlowEffect() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const { theme } = useTheme()
 
   useEffect(() => {
+    setIsMounted(true)
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
       setIsVisible(true)
@@ -26,6 +29,9 @@ export function MouseGlowEffect() {
       document.body.removeEventListener("mouseleave", handleMouseLeave)
     }
   }, [])
+
+  // Don't render anything on the server
+  if (!isMounted) return null
 
   return (
     <div

@@ -4,19 +4,26 @@ import { useWallet } from "@solana/wallet-adapter-react"
 import { useWalletModal } from "@/hooks/use-wallet-modal"
 import { Button } from "@/components/ui/button"
 import { Wallet, AlertCircle, Check } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 export function StepWalletConnect({ onNext }: { onNext: () => void }) {
   const { publicKey, connected } = useWallet()
   const { setVisible } = useWalletModal()
+  const [isMounted, setIsMounted] = useState(false)
 
-  // If wallet is connected, automatically proceed to next step
   useEffect(() => {
+    setIsMounted(true)
+
+    // If wallet is connected, automatically proceed to next step
     if (connected) {
       onNext()
     }
   }, [connected, onNext])
+
+  if (!isMounted) {
+    return <div className="py-8">Loading wallet status...</div>
+  }
 
   return (
     <div className="space-y-6">
