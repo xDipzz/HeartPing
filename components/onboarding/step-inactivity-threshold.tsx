@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,36 +18,42 @@ export function StepInactivityThreshold({
   data: OnboardingData
   updateData: (data: Partial<OnboardingData>) => void
 }) {
+  // Simple state management
   const [period, setPeriod] = useState(data.inactivityPeriod.toString())
-  const [unit, setUnit] = useState(data.inactivityUnit)
-  const [frequency, setFrequency] = useState(data.pingFrequency)
+  const [unit, setUnit] = useState<"days" | "weeks" | "months">(data.inactivityUnit)
+  const [frequency, setFrequency] = useState<"one-time" | "recurring">(data.pingFrequency)
   const [recurringDays, setRecurringDays] = useState(data.recurringDays?.toString() || "7")
 
-  const handlePeriodChange = (value: string) => {
+  // Simple handlers
+  const handlePeriodChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
     setPeriod(value)
-    const numValue = Number.parseInt(value)
+    const numValue = Number.parseInt(value, 10)
     if (!isNaN(numValue) && numValue > 0) {
       updateData({ inactivityPeriod: numValue })
     }
   }
 
   const handleUnitChange = (value: string) => {
-    setUnit(value as "days" | "weeks" | "months")
-    updateData({ inactivityUnit: value as "days" | "weeks" | "months" })
+    const unitValue = value as "days" | "weeks" | "months"
+    setUnit(unitValue)
+    updateData({ inactivityUnit: unitValue })
   }
 
   const handleFrequencyChange = (value: string) => {
-    setFrequency(value as "one-time" | "recurring")
+    const freqValue = value as "one-time" | "recurring"
+    setFrequency(freqValue)
     updateData({
-      pingFrequency: value as "one-time" | "recurring",
-      recurringDays: value === "recurring" ? Number.parseInt(recurringDays) : undefined,
+      pingFrequency: freqValue,
+      recurringDays: freqValue === "recurring" ? Number.parseInt(recurringDays, 10) : undefined,
     })
   }
 
-  const handleRecurringDaysChange = (value: string) => {
+  const handleRecurringDaysChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
     setRecurringDays(value)
-    const numValue = Number.parseInt(value)
-    if (!isNaN(numValue) && numValue > 0) {
+    const numValue = Number.parseInt(value, 10)
+    if (!isNaN(numValue) && numValue > 0 && frequency === "recurring") {
       updateData({ recurringDays: numValue })
     }
   }
@@ -63,13 +71,7 @@ export function StepInactivityThreshold({
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="period">Inactivity period</Label>
-            <Input
-              id="period"
-              type="number"
-              min="1"
-              value={period}
-              onChange={(e) => handlePeriodChange(e.target.value)}
-            />
+            <Input id="period" type="number" min="1" value={period} onChange={handlePeriodChange} />
           </div>
           <div className="space-y-2">
             <Label htmlFor="unit">Unit</Label>
@@ -110,7 +112,7 @@ export function StepInactivityThreshold({
                 min="1"
                 className="w-20"
                 value={recurringDays}
-                onChange={(e) => handleRecurringDaysChange(e.target.value)}
+                onChange={handleRecurringDaysChange}
               />
               <span>days until activity is detected</span>
             </div>
